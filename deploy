@@ -1,2 +1,2 @@
 #!/bin/bash
-exec ansible-playbook -u curt -i production site.yml
+exec ansible-playbook -u curt -i production site-pytorch.yml
