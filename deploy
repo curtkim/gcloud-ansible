@@ -1,0 +1,2 @@
+#!/bin/bash
+exec ansible-playbook -u curt -i production site.yml

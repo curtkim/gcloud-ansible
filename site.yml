@@ -1,0 +1,32 @@
+---
+- hosts: server
+  become: true
+  become_method: sudo
+  vars:
+  tasks:
+
+  - apt:
+      name: "{{ item }}"
+      update_cache: true
+    vars:
+      item:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg-agent
+
+  #docker(https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+  - copy: src=docker.key dest=/tmp/docker.key
+  - apt_key: file=/tmp/docker.key
+  - copy: src=docker.list dest=/etc/apt/sources.list.d/docker.list
+  - apt:
+      name: "{{ item }}"
+      update_cache:true
+    vars:
+      item:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+  - user: name=curt groups=docker append=yes
